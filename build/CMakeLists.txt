@@ -8,8 +8,9 @@ project(Harry_Plotter
 )
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_C_STANDRAD   20)
+set(CMAKE_C_STANDARD   20)
 set(SRC 			   "${CMAKE_CURRENT_LIST_DIR}/../src")
+set(VENDOR             "${CMAKE_CURRENT_LIST_DIR}/../vendor")
 
 
 # Sources & include dirs:
@@ -17,11 +18,14 @@ add_executable(${PROJECT_NAME}
 	${SRC}/base.pch.cpp
 	${SRC}/main.cpp
 	${SRC}/Data.cpp
+	${SRC}/Math.cpp
+	${SRC}/Image.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
 	PRIVATE
 	${SRC}
+	${VENDOR}/stb
 )
 
 # Compile definitions:
@@ -49,4 +53,15 @@ else()
 		PRIVATE
 		PROJECT_BUILD_RELEASE=1
 	)
+endif()
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	set(CMAKE_CXX_COMPILER_FLAGS_DEBUG "-Wextra -Werror")
+	set(CMAKE_CXX_COMPILER_FLAGS_RELEASE "-Wall -Wextra -Werror")
+	target_compile_options(${PROJECT_NAME}
+		PRIVATE
+		-msse
+	)
+else()
+	message(FATAL_ERROR "Unsupported compiler!")
 endif()
