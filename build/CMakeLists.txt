@@ -17,9 +17,9 @@ set(VENDOR             "${CMAKE_CURRENT_LIST_DIR}/../vendor")
 add_executable(${PROJECT_NAME}
 	${SRC}/base.pch.cpp
 	${SRC}/main.cpp
-	${SRC}/Data.cpp
-	${SRC}/Math.cpp
-	${SRC}/Image.cpp
+	${SRC}/harry_plotter/Data.cpp
+	${SRC}/harry_plotter/Math.cpp
+	${SRC}/harry_plotter/Image.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

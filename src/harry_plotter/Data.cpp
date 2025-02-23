@@ -1,11 +1,25 @@
 
-#include <Data.hpp>
+#include <harry_plotter/Data.hpp>
 
 namespace harry_plotter {
 
     /*
     ## Data: impl
     */
+
+    Data
+    Data::from_file(const std::string& file_name) {
+        std::ifstream input_file(file_name, std::ios::binary | std::ios::ate);
+        EXPECT(input_file.is_open());
+
+        int size   = static_cast<int>(input_file.tellg());
+        u8* buffer = new u8[size];
+
+        input_file.seekg(0, std::ios::beg);
+        input_file.read(reinterpret_cast<char*>(buffer), size);
+
+        return Data(size, buffer);
+    }
 
     Data::Data(int byte_count, u8* ptr)
     : byte_count(byte_count),
@@ -23,7 +37,7 @@ namespace harry_plotter {
     }
 
     Data_View
-    Data::view(int start_pos) {
+    Data::view(int start_pos) const {
         return Data_View(*this, start_pos);
     }
 

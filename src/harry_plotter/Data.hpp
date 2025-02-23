@@ -18,7 +18,10 @@ namespace harry_plotter {
         ~Data();
 
         Data_View
-        view(int start_pos);
+        view(int start_pos) const;
+
+        static Data
+        from_file(const std::string& file_name);
     };
 
     /*
@@ -43,12 +46,32 @@ namespace harry_plotter {
         }
 
         template <typename T>
+        bool
+        has() {
+            return byte_count >= static_cast<int>(sizeof(T));
+        }
+
+        template <typename T>
         T*
         get() {
             T* value = reinterpret_cast<T*>(ptr);
             move(static_cast<int>(sizeof(T)));
 
             return value;
+        }
+
+        template <typename T>
+        T
+        get_or(T default_value) {
+            int amount = static_cast<int>(sizeof(T));
+            if (byte_count >= amount) {
+                T* value = reinterpret_cast<T*>(ptr);
+                move(amount);
+
+                return *value;
+            }
+
+            return default_value;
         }
 
         template <typename T>

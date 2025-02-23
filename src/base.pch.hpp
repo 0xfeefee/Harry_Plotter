@@ -14,9 +14,10 @@
 
 namespace harry_plotter {
 
-    typedef uint8_t u8;
-    typedef int16_t s16;
-    typedef float   f32;
+    typedef uint8_t  u8;
+    typedef int16_t  s16;
+    typedef uint32_t u32;
+    typedef float    f32;
 
     /*
         Print out the caller location and terminate the application.
