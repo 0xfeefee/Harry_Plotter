@@ -14,7 +14,9 @@ set(SRC 			   "${CMAKE_CURRENT_LIST_DIR}/../src")
 
 # Sources & include dirs:
 add_executable(${PROJECT_NAME}
+	${SRC}/base.pch.cpp
 	${SRC}/main.cpp
+	${SRC}/Data.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
