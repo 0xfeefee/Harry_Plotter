@@ -20,6 +20,9 @@ namespace harry_plotter {
         Data_View
         view(int start_pos) const;
 
+        std::vector<int>
+        gen_histogram();
+
         static Data
         from_file(const std::string& file_name);
     };
@@ -38,12 +41,7 @@ namespace harry_plotter {
         move(int amount);
 
         u8
-        operator[](int index);
-
-        u8*
-        get() {
-            return ptr;
-        }
+        operator[](int index) const;
 
         template <typename T>
         bool
@@ -62,7 +60,7 @@ namespace harry_plotter {
 
         template <typename T>
         T
-        get_or(T default_value) {
+        value_or(T default_value) {
             int amount = static_cast<int>(sizeof(T));
             if (byte_count >= amount) {
                 T* value = reinterpret_cast<T*>(ptr);

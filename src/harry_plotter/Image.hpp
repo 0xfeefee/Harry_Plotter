@@ -10,6 +10,9 @@ namespace harry_plotter {
         u8* data;
 
         Image(int width);
+        Image(int width, int height);
+
+        ~Image();
 
         int
         size();
@@ -22,6 +25,15 @@ namespace harry_plotter {
 
         static Image
         from_binary_data(const Data& data);
+
+        static Image
+        from_binary_data(const Data& data, u8 min_treshold, u8 max_treshold = 255);
+
+        static Image
+        from_binary_data_trail(const Data& data);
+
+        static Image
+        from_histogram(std::vector<int> histogram);
 
         static void
         write_to_disk(Image& image, const std::string& image_path);

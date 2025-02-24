@@ -41,6 +41,19 @@ namespace harry_plotter {
         return Data_View(*this, start_pos);
     }
 
+    std::vector<int>
+    Data::gen_histogram() {
+        Data_View data_view = view(0);
+
+        std::vector<int> histogram(256, 0);
+        for (int i = 0; i < byte_count; ++i) {
+            u8 b = data_view.value_or<u8>(0);
+            histogram[b] += 1;
+        }
+
+        return histogram;
+    }
+
 
     /*
     ## Data_View: impl
@@ -62,7 +75,7 @@ namespace harry_plotter {
     }
 
     u8
-    Data_View::operator[](int index) {
+    Data_View::operator[](int index) const {
         EXPECT(index >= 0 && index <= byte_count);
 
         return ptr[index];

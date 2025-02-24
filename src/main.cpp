@@ -26,11 +26,29 @@ main(int argc, const char* argv[]) {
     }
 
     {
-        Image image = Image::from_binary_data(image_data);
+        Image image = Image::from_binary_data(image_data, 50, 100);
         Image::write_to_disk(image, "output.png");
 
         Image image2 = Image::from_binary_data(code_data);
-        Image::write_to_disk(image2, "output2.png");
+        Image::write_to_disk(image2, "output3.png");
+    }
+
+    {
+        std::vector<int> histogram = image_data.gen_histogram();
+
+        for (int i = 0; i < histogram.size(); ++i) {
+            print("{} ", histogram[i]);
+        }
+        print("\n");
+
+        Image image = Image::from_histogram(histogram);
+        Image::write_to_disk(image, "histogram.png");
+    }
+
+    {
+        Data image_data = Data::from_file("lines.png");
+        Image image = Image::from_binary_data_trail(image_data);
+        Image::write_to_disk(image, "lines2.png");
     }
 
     return 0;

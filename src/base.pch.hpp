@@ -3,7 +3,8 @@
 #include <iostream> // IWYU pragma: keep
 #include <format>   // IWYU pragma: keep
 #include <fstream>  // IWYU pragma: keep
-
+#include <vector>   // IWYU pragma: keep
+#include <algorithm> // IWYU pragma: keep
 
 #define EXPECT(condition, ...)   if (!(condition)) \
     harry_plotter::terminate(__FILE__, __LINE__, #condition, __VA_ARGS__)
